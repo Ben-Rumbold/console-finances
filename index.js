@@ -87,8 +87,46 @@ var finances = [
   ["Feb-2017", 671099],
 ];
 
-// creating a totalMonths var, using the length of finances var
+// beginning conosole logs
+console.log("Financial Analysis");
+console.log("----------------");
+
+// creating a totalMonths variable, using the length of the finances variables
 var totalMonths = finances.length;
 
 // console log the total months using a template literal
-console.log(`Total months: ${totalMonths}`);
+console.log(`Total Months: ${totalMonths}`);
+
+// variable for the total of finaces, this will hold the answer from the for loop
+var financesTotal = 0;
+
+// for loop to find the total of finances
+for (i = 0; i > totalMonths; i++) {
+  // add the answer to financesTotal
+}
+
+// console log total using a template literal
+console.log(`Total: $${financesTotal}`);
+
+// month to month change array
+var monthToMonthChange = 0;
+// month to month change total
+var monthToMonthChangeTotal = 0;
+// month to month average change
+var monthToMonthAvgChange = monthToMonthChangeTotal / (totalMonths - 1);
+
+// for loop to work out the average month-to-month change
+// explained: we want to workout the month-to-month change by subtracting month 1 from month 2, then log that to an array (monthToMonthChange). then repeat all the way until the end ((finances.length -1) amount of times). then workout the total of those differences and assign to monthToMonthTotal), then divide monthTopMonthTotal by (finances.length(-1)), then assign that total to monthToMonthChangeTotal
+
+// console log average change using a template literal
+console.log(`Average Change: $${monthToMonthAvgChange}`);
+
+// from the array monthToMonthChange, use a method to find the highest number, assign it to a variable, console.log it
+var greatestIncrease = monthToMonthChange.max();
+// must include month AND number
+console.log(`Greatest Increase in Profits/Losses: $${greatestIncrease}`);
+
+// from the array monthToMonthChange, use a method to find the lowest number, assign it to a variable, console.log it
+var greatestDecrease = monthToMonthChange.min();
+// must include month AND number
+console.log(`Greatest Decrease in Profits/Losses: $${greatestDecrease}`);
