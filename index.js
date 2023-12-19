@@ -97,36 +97,76 @@ var totalMonths = finances.length;
 // console log the total months using a template literal
 console.log(`Total Months: ${totalMonths}`);
 
+// ----------------------------------------------------------------------------------------------------------------------------------------
 // variable for the total of finaces, this will hold the answer from the for loop
 var financesTotal = 0;
 
 // for loop to find the total of finances
-for (i = 0; i > totalMonths; i++) {
-  // add the answer to financesTotal
+for (let i = 0; i < totalMonths; i++) {
+  financesTotal += finances[i][1];
 }
 
-// console log total using a template literal
-console.log(`Total: $${financesTotal}`);
+// console log total using a template literal (Intl.NumberFormat('en-US').format()) formats the number by adding comas, making it easier to read)
+console.log(`Total: $${Intl.NumberFormat("en-US").format(financesTotal)}`);
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
 // month to month change array
-var monthToMonthChange = 0;
+var monthToMonthChange = [];
 // month to month change total
 var monthToMonthChangeTotal = 0;
-// month to month average change
-var monthToMonthAvgChange = monthToMonthChangeTotal / (totalMonths - 1);
 
 // for loop to work out the average month-to-month change
-// explained: we want to workout the month-to-month change by subtracting month 1 from month 2, then log that to an array (monthToMonthChange). then repeat all the way until the end ((finances.length -1) amount of times). then workout the total of those differences and assign to monthToMonthTotal), then divide monthTopMonthTotal by (finances.length(-1)), then assign that total to monthToMonthChangeTotal
+// explained: we want to workout the month-to-month change by subtracting month 1 from month 2, then log that to an array (monthToMonthChange). then repeat all the way until the end ((totalMonths -1) amount of times). then workout the total of those differences and assign to monthToMonthTotal), then divide monthToMonthTotal by (finances.length(-1)).
+// then assign that total to monthToMonthChangeTotal
+
+for (let i = 0; i < totalMonths - 1; i++) {
+  monthToMonthChange.push(finances[i + 1][1] - finances[i][1]);
+}
+
+// console log check to see if the array month-to-month changes has been created and assigned
+// console.log(`Month to Month Change Array: $${monthToMonthChange}`);
+
+// for loop to calculate the total of the array monthToMonthChange
+for (let i = 0; i < monthToMonthChange.length; i++) {
+  monthToMonthChangeTotal += monthToMonthChange[i];
+}
+
+// console log check to see if month-to-month change total has been calculated and assigned
+// console.log(`Month to Month Change Total: $${monthToMonthChangeTotal}`);
+
+// month to month average change
+var monthToMonthAvgChange = (
+  monthToMonthChangeTotal / monthToMonthChange.length
+).toFixed(2);
 
 // console log average change using a template literal
-console.log(`Average Change: $${monthToMonthAvgChange}`);
+console.log(`Average Change: ${monthToMonthAvgChange}`);
 
-// from the array monthToMonthChange, use a method to find the highest number, assign it to a variable, console.log it
-var greatestIncrease = monthToMonthChange.max();
-// must include month AND number
-console.log(`Greatest Increase in Profits/Losses: $${greatestIncrease}`);
+// ----------------------------------------------------------------------------------------------------------------------------------------
 
-// from the array monthToMonthChange, use a method to find the lowest number, assign it to a variable, console.log it
-var greatestDecrease = monthToMonthChange.min();
-// must include month AND number
-console.log(`Greatest Decrease in Profits/Losses: $${greatestDecrease}`);
+// from the array monthToMonthChange, use the Math.max method to find the highest number, assign it to a variable
+var greatestIncrease = Math.max(...monthToMonthChange);
+// find the index of the var greatestIncrease
+var greatestIncreaseIndex = monthToMonthChange.indexOf(greatestIncrease);
+// assign greatestIncrease month to a variable
+var greatestIncreaseMonth = finances[greatestIncreaseIndex + 1][0];
+// greatest increase console log
+console.log(
+  `Greatest Increase in Profits/Losses: ${greatestIncreaseMonth} ($${Intl.NumberFormat(
+    "en-US"
+  ).format(greatestIncrease)})`
+);
+
+// from the array monthToMonthChange, use the Math.min method to find the lowest number, assign it to a variable
+var greatestDecrease = Math.min(...monthToMonthChange);
+// find the index of the var greatestDecrease
+var greatestDecreaseIndex = monthToMonthChange.indexOf(greatestDecrease);
+// assign greatestIncrease month to a variable
+var greatestDecreaseMonth = finances[greatestDecreaseIndex + 1][0];
+// greatest decrease console log
+console.log(
+  `Greatest Decrease in Profits/Losses: ${greatestDecreaseMonth} ($${Intl.NumberFormat(
+    "en-US"
+  ).format(greatestDecrease)})`
+);
